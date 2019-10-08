@@ -14,16 +14,56 @@ const Button = ({ onClick, text }) => (
 
 )
 
-const Content = ({ label, number }) => (
-
+const Statistic = ({label, number}) => {
+    if (label === 'Positive') {
+        return (
+            <p>
+                {label} {number}%
+            </p>
+        )
+    }
+    return (
         <p>
-            {label} {number}
-        </p>
+        {label} {number}
+    </p>
+    )
+}
 
-)
+const Statistics = ({good, bad, neutral, total}) => {
+    const setAverage = ({good, bad, total}) => {
+        return (
+            (good - bad) / total
+        )
+        
+    }
 
+    const setPositivePercent = ({good, total}) => {
+        return (
+            (good / total) * 100
+        )
+    }
+    if (good === 0 && neutral === 0 && bad === 0){
+        return (
+        <div>
+            No feedback given
+        </div>
+        )
+    }
 
-const App = () => {
+    return (
+        <div>
+            <Statistic label='Good' number={good}/>
+            <Statistic label='Neutral' number={neutral}/>
+            <Statistic label='Bad' number={bad}/>
+            <Statistic label='All' number={(total)}/>
+            <Statistic label='Average' number={setAverage({good, bad, total})}/>
+            <Statistic label='Positive' number={setPositivePercent({good, total})}/>
+          
+        </div>
+
+    )}
+
+const App = (props) => {
     // save clicks of each button to own state
     const [good, setGood] = useState(0)
     const [neutral, setNeutral] = useState(0)
@@ -45,18 +85,6 @@ const App = () => {
         setTotal(total + 1)
     }
 
-    const setAverage = ({good, bad, total}) => {
-        return (
-            (good - bad) / total
-        )
-        
-    }
-
-    const setPositivePercent = ({good, total}) => {
-        return (
-            (good / total) * 100
-        )
-    }
 
 
     return (
@@ -66,12 +94,8 @@ const App = () => {
             <Button onClick={handleNeutralClick} text='neutral'/>
             <Button onClick={handleBadClick} text='bad'/>
             <Header heading="statistics"/>
-            <Content label='Good' number={good}></Content>
-            <Content label='Neutral' number={neutral}></Content>
-            <Content label='Bad' number={bad}></Content>
-            <Content label='All' number={(total)}></Content>
-            <Content label='Average' number={setAverage({good, bad, total})}/>
-            <Content label='Positive' number={setPositivePercent({good, total})}/>
+            <Statistics good={good} bad={bad} neutral={neutral} total={total}/>
+  
         </div>
     )
 
