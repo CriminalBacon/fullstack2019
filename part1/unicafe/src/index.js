@@ -17,16 +17,18 @@ const Button = ({ onClick, text }) => (
 const Statistic = ({label, number}) => {
     if (label === 'Positive') {
         return (
-            <p>
-                {label} {number}%
-            </p>
+            <tr>
+                <td>{label}</td> 
+                <td>{number}%</td>
+            </tr>
         )
     }
     return (
-        <p>
-        {label} {number}
-    </p>
-    )
+        <tr>
+            <td>{label}</td> 
+            <td>{number}</td>
+        </tr>
+    )   
 }
 
 const Statistics = ({good, bad, neutral, total}) => {
@@ -42,6 +44,7 @@ const Statistics = ({good, bad, neutral, total}) => {
             (good / total) * 100
         )
     }
+
     if (good === 0 && neutral === 0 && bad === 0){
         return (
         <div>
@@ -52,13 +55,16 @@ const Statistics = ({good, bad, neutral, total}) => {
 
     return (
         <div>
-            <Statistic label='Good' number={good}/>
-            <Statistic label='Neutral' number={neutral}/>
-            <Statistic label='Bad' number={bad}/>
-            <Statistic label='All' number={(total)}/>
-            <Statistic label='Average' number={setAverage({good, bad, total})}/>
-            <Statistic label='Positive' number={setPositivePercent({good, total})}/>
-          
+            <table>
+                <tbody>
+                    <Statistic label='Good' number={good}/>
+                    <Statistic label='Neutral' number={neutral}/>
+                    <Statistic label='Bad' number={bad}/>
+                    <Statistic label='All' number={(total)}/>
+                    <Statistic label='Average' number={setAverage({good, bad, total})}/>
+                    <Statistic label='Positive' number={setPositivePercent({good, total})}/>
+                </tbody>
+            </table>
         </div>
 
     )}
