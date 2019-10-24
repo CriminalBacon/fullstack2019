@@ -5,8 +5,12 @@ const Header = ({title}) =>
   <h1>{title}</h1>
 
 
-const Total = props => {
-  const total = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
+const Total = ({ parts }) => {
+  const exerciseArray = parts.map(x => x.exercises)
+  const total = exerciseArray.reduce( (sum, exercise) => {
+    console.log("test", sum, exercise)
+    return sum + exercise
+  })
 
   return <p>Number of exercises {total} </p>
 }
@@ -51,6 +55,11 @@ const App = () => {
           name: 'State of a component',
           exercises: 14,
           id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
         }
       ]
     }
