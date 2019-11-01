@@ -5,9 +5,14 @@ import Phone from './components/Phone'
 const App = (props) => {
   const [ persons, setPersons] = useState(props.persons)
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   const handleNameChange = (event) => {
-      setNewName(event.target.value)
+    setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   const rows = () => persons.map(person =>
@@ -23,7 +28,8 @@ const App = (props) => {
     
     const phoneObject = {
       name: newName,
-      id: newName
+      id: newName,
+      number: newNumber
       }
 
       if (persons.some(person => person.name === newName)) {
@@ -33,6 +39,7 @@ const App = (props) => {
       }
 
       setNewName('')
+      setNewNumber('')
     
     }
  
@@ -46,6 +53,13 @@ const App = (props) => {
             <input
                 value={newName}
                 onChange={handleNameChange} 
+            />
+        </div>
+        <div>
+          number:
+            <input
+                value={newNumber}
+                onChange={handleNumberChange}
             />
         </div>
         <div>

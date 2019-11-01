@@ -5,7 +5,8 @@ import App from './App';
 const persons = [
     {
         id: 'Arto Hellas',
-        name: 'Arto Hellas'
+        name: 'Arto Hellas',
+        number: '999999999'
     }
 ]
 
