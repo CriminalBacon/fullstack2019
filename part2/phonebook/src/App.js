@@ -6,6 +6,8 @@ const App = (props) => {
   const [ persons, setPersons] = useState(props.persons)
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ searchFilter, setSearchFilter ] = useState('')
+
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -15,12 +17,19 @@ const App = (props) => {
     setNewNumber(event.target.value)
   }
 
-  const rows = () => persons.map(person =>
+  const handleSearchFilter = (event) => {
+    setSearchFilter(event.target.value)
+  }
+
+  const rows = () => {
+    const search = person => person.name.toLowerCase().includes(searchFilter.toLowerCase())
+    const searchResults = persons.filter(search)
+    return (searchResults.map(person =>
         <Phone
             key = {person.name}
             person = {person}
         />
-      )
+      ))}
 
 
   const addPhone = (event) =>{
@@ -48,6 +57,16 @@ const App = (props) => {
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPhone}>
+        <div>
+          filter shown with
+            <input
+              value={searchFilter}
+              onChange={handleSearchFilter}
+            />
+        </div>
+        <div>
+          <h2>add a new</h2>
+        </div>
         <div>
           name: 
             <input
