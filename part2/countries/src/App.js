@@ -24,6 +24,7 @@ const App = () => {
 
 
     return(
+        
         <div>
             <Filter 
                 filterValue={searchFilter}
