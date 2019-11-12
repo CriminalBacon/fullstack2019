@@ -2,10 +2,9 @@ import React from 'react'
 
 const CountryData = ({ place }) => {
 
-    const Languages = ({languages}) => {
-        console.log('lang', languages)
+    const Languages = ( {languages} ) => {
         return(languages.map(language => 
-            <li>
+            <li key={language.name}>
                 {language.name}
             </li>
             )

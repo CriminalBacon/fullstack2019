@@ -1,37 +1,72 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import Display from './components/Display'
 import Filter from './components/Filter'
+import CountryData from './components/CountryData'
 
 const App = () => {
     const [ countries, setCountries] = useState([])
     const [ searchFilter, setSearchFilter] = useState('')
 
-    useEffect(() => {
+    const getCountryData = () => {
         axios
             .get('https://restcountries.eu/rest/v2/all')
             .then(response => {
                 setCountries(response.data)
             })
+    }
 
+    useEffect(getCountryData, [])
 
-    })
 
     const handleSearchFilter = (event) => {
         setSearchFilter(event.target.value)
     }
 
+    const Display = ({search, countryName}) => {
 
+        
+    
+        const searchResults = countryName.filter(country => 
+            country.name.toLowerCase().includes(search.toLowerCase()))
+
+        
+        if (search === ''){
+            return <div></div>
+
+        } else if (searchResults.length > 10){
+            return ( <div>Too many matches, specify another filter</div>)
+        
+        } else if (searchResults.length === 1){
+            return(searchResults.map(country =>
+                <CountryData 
+                    key={country.name}
+                    place={country}>
+                </CountryData>
+            ))
+        
+        } else {
+            return (searchResults.map(country =>
+                <div key={country.name}>
+                    {country.name}
+                </div>
+            ))
+    
+        }
+    
+    
+    
+    }
 
     return(
         
         <div>
-            <Filter 
+            <Filter
                 filterValue={searchFilter}
                 handleSearch={handleSearchFilter}
             />
 
             <Display
+                key={countries.name}
                 search={searchFilter}
                 countryName={countries}
             />
@@ -39,8 +74,6 @@ const App = () => {
 
         </div>
     )
-
-
 
 
 }
