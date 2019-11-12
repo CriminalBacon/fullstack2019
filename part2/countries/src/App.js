@@ -22,6 +22,25 @@ const App = () => {
         setSearchFilter(event.target.value)
     }
 
+    const handleShowClick = ( {country} ) => {
+        setSearchFilter(country.name)
+
+        return (
+            <CountryData 
+                    key={country.name} 
+                    place={country}>
+            </CountryData>
+    )}
+
+    const ShowButton = ( {country} ) => {
+
+        return (
+            <button onClick={() => handleShowClick({country})}>
+                show
+            </button>
+        )
+    }
+
     const Display = ({search, countryName}) => {
 
         
@@ -48,12 +67,13 @@ const App = () => {
             return (searchResults.map(country =>
                 <div key={country.name}>
                     {country.name}
+                    <ShowButton
+                        country={country}>
+                    </ShowButton>
                 </div>
             ))
     
         }
-    
-    
     
     }
 
@@ -71,10 +91,8 @@ const App = () => {
                 countryName={countries}
             />
 
-
         </div>
     )
-
 
 }
 
