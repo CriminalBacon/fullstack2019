@@ -25,12 +25,7 @@ const App = () => {
     const handleShowClick = ( {country} ) => {
         setSearchFilter(country.name)
 
-        return (
-            <CountryData 
-                    key={country.name} 
-                    place={country}>
-            </CountryData>
-    )}
+        }
 
     const ShowButton = ( {country} ) => {
 
